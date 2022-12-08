@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>320</x>
+      <y>304</y>
+      <w>168</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>Play
+--
++ main(): void
++ printIntrotext(): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>32</x>
+      <y>304</y>
+      <w>168</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>Player
+--
+- name: String
+--
++ Player(): void
++ getName(): String
++ setName(): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>224</x>
+      <y>136</y>
+      <w>168</w>
+      <h>112</h>
+    </coordinates>
+    <panel_attributes>Board
+--
+- boardSolution: String[]
+- player: Player()
+- possibleColors: String[]
+--
++ Board(): void
++ checkAnswer(): boolean
++ getBoardSolution(): String</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>160</x>
+      <y>240</y>
+      <w>72</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>70.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>440</x>
+      <y>120</y>
+      <w>168</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>gameFrame extends JFrame
+--
+- resetButton: Jbutton
+- submitButton: Jbutton
+- mainPanel: JPanel
+- colorsButton: Jbutton
+- title: JTextField
+--
++ gameFrame(): void
++ createPanel(): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Text</id>
+    <coordinates>
+      <x>160</x>
+      <y>248</y>
+      <w>48</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>has a
+style=wordwrap</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>448</x>
+      <y>240</y>
+      <w>48</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;60.0;40.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>320</x>
+      <y>248</y>
+      <w>48</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>40.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>
