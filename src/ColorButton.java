@@ -1,5 +1,6 @@
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.Dimension;
 
 public class ColorButton extends JButton
 {
@@ -10,6 +11,7 @@ public class ColorButton extends JButton
 	ColorButton(int row, int column){
 		this.row = row;
 		this.column = column;
+		setPreferredSize(new Dimension(20,20));
 	}
 	
 	public int getRow() {
@@ -24,7 +26,10 @@ public class ColorButton extends JButton
 		return buttonColor;
 	}
 	
-//	public void setBackground() {
-//		
-//	}
+	@Override
+	public void setBackground(Color bg) {
+		super.setBackground(bg);
+		buttonColor = bg;
+//		System.out.println(buttonColor);
+	}
 }

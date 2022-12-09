@@ -9,12 +9,14 @@ import java.util.Scanner;
  */
 public class Play
 {
-    public static void main(String[] args)
+    int guessCount = 0;
+
+    public static void main(String[] args) throws InterruptedException
     {
     	GameFrame frame = new GameFrame();
+    	Thread.sleep(1000);
     	frame.createColorsPanel();
         final int MAX_GUESSES = 10;  //Change the max guesses to adjust difficulty
-        int guessCount = 0;
         Board board = new Board();
 //        Player player;
 //        Scanner input = new Scanner(System.in);
