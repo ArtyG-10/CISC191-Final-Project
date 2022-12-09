@@ -4,14 +4,12 @@ import java.awt.event.ActionListener;
 
 public class ColorButtonListener implements ActionListener
 {
-//	GameFrame gameFrame;
 	ColorButton colorButton;
 	Color color;
 	int click = 0;
 	
 	ColorButtonListener(ColorButton colorButton) {
 		this.colorButton = colorButton;
-//		this.gameFrame = gameFrame;
 	}
 	 
 	public void actionPerformed(ActionEvent e) {

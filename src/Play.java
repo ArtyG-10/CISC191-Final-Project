@@ -9,7 +9,6 @@ import java.util.Scanner;
  */
 public class Play
 {
-    final int MAX_GUESSES = 10;  //Change the max guesses to adjust difficulty
     static GameFrame gameFrame;
     
 

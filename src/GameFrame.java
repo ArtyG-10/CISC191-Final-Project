@@ -17,7 +17,7 @@ public class GameFrame extends JFrame
 	private ColorButtonListener buttonListener;
 	private ColorButton[][] colorArray = new ColorButton[7][4];
 	private JButton submitButton = new JButton("SUBMIT");
-	private JButton resetButton = new JButton("RESET");
+	private JButton exitButton = new JButton("EXIT");
 	
 	
 	public GameFrame()
@@ -70,9 +70,16 @@ public class GameFrame extends JFrame
 		buttonPanel = new JPanel();
 		buttonPanel.setBackground(Color.pink);
 		buttonPanel.add(submitButton);
-		buttonPanel.add(resetButton);		submitButton.addActionListener(  new ActionListener() {
+		buttonPanel.add(exitButton);		
+		submitButton.addActionListener(  new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {	    	
-		        newTurn();
+		        guessCount++;
+		      }
+		    }
+		  );
+		exitButton.addActionListener(  new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {	    	
+		        System.exit(0);
 		      }
 		    }
 		  );
@@ -90,11 +97,7 @@ public class GameFrame extends JFrame
 	}
 	public int getGuessCount() {
 		return guessCount;
-	}
-	public void newTurn() {
-		guessCount++;
-	}
-	
+	}	
 	
 	
 }
