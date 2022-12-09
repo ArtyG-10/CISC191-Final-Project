@@ -4,17 +4,16 @@ import java.awt.event.ActionListener;
 
 public class ColorButtonListener implements ActionListener
 {
-	GameFrame gameFrame;
+//	GameFrame gameFrame;
 	ColorButton colorButton;
 	Color color;
 	int click = 0;
 	
-	 ColorButtonListener(GameFrame gameFrame,
-			ColorButton colorButton) 
-	{
+	ColorButtonListener(ColorButton colorButton) {
 		this.colorButton = colorButton;
-		this.gameFrame = gameFrame;
+//		this.gameFrame = gameFrame;
 	}
+	 
 	public void actionPerformed(ActionEvent e) {
 		if (click == 6) click = 0;
 		click++;
@@ -38,6 +37,7 @@ public class ColorButtonListener implements ActionListener
 				color = Color.pink;
 			    break;
 			}
+		
 		colorButton.setBackground(color);
 	}
 

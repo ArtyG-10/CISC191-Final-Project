@@ -9,15 +9,14 @@ import java.util.Scanner;
  */
 public class Play
 {
-    int guessCount = 0;
+    final int MAX_GUESSES = 10;  //Change the max guesses to adjust difficulty
+    static GameFrame gameFrame;
+    
 
     public static void main(String[] args) throws InterruptedException
     {
-    	printIntroText();
-    	enterToProceed();
-    	new GameFrame();
-        final int MAX_GUESSES = 10;  //Change the max guesses to adjust difficulty
-        Board board = new Board();
+//    	printIntroText();
+//        Board board = new Board();
 //        Player player;
 //        Scanner input = new Scanner(System.in);
 //        boolean winStatus = false;
@@ -26,7 +25,22 @@ public class Play
 //        System.out.println("Enter a name:");
 //        String playerName = input.next();
 //        player = new Player(playerName);
-
+        
+//    	enterToProceed();
+    	
+    	gameFrame = new GameFrame();
+    	
+    	while(gameFrame.getGuessCount() < 7) {
+    	    gameTurn();
+    	}
+    }
+    	
+    public static void gameTurn() 
+    {
+    	for(int i=0 ; i < 4 ; i++) {
+        	gameFrame.addColorButtonListener(6 - gameFrame.getGuessCount(), i);
+    	}
+    }
 //        while (guessCount < MAX_GUESSES && winStatus == false)
 //        {
 //            boolean validGuessFlag = false;   //flag used to make sure input is formatted correctly
@@ -101,24 +115,27 @@ public class Play
 //        {
 //            System.out.println("Sorry, " + player.getName() + ". You lost. The answer was " + board.getBoardSolution());
 //        }
-    }
+  
     
     //Announces the rules of the game
     public static void printIntroText() throws InterruptedException
     {
         System.out.println("Welcome to Mastermind!");
-        Thread.sleep(1000);
+        Thread.sleep(1500);
         System.out.println("The objective of the game is to guess the correct sequence of colors in 10 turns or less");
-        Thread.sleep(1000);
-        System.out.println("All of the possible colors are R, O, Y, G, B, P");
-        Thread.sleep(1000);
-        System.out.println("Of the 6 colors, the sequence will only contain 4, so your guesses must also include 4 colors");
-        Thread.sleep(1000);
-        System.out.println("Make sure your guesses don't include any spaces between them i.e. 'RBGY'");
-        Thread.sleep(1000);
-        System.out.println("The computer will inform you if... \n-You have the correct color in the correct place, \n-The correct color but in the wrong place \n-Or the wrong color all together.");
-        Thread.sleep(1000);
-        System.out.println("Now, may the game begin");
+        Thread.sleep(1500);
+        System.out.println("All of the possible colors are RED, GREEN, BLUE, YELLOW, ORANGE, PINK");
+        Thread.sleep(1500);
+        System.out.println("Of the 6 colors, the sequence will only contain 4, which can be repeated");
+        Thread.sleep(1500);
+        System.out.println("Start from the bottom four.. clicking on each one until you get your desired color");
+        Thread.sleep(1500);
+        System.out.println("Press the submit button when colors are selected.");
+        Thread.sleep(1500);
+        System.out.println("The hint will be grey for correct colors wrong place. And Black for correct colors correct place.");
+        Thread.sleep(1500);
+        System.out.println("Move on to the next row and repeat until you guess all the colors in their place correctly");
+        Thread.sleep(1500);
     }
     
     public static void enterToProceed(){

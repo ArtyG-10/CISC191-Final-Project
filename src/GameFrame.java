@@ -2,20 +2,25 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
 public class GameFrame extends JFrame
 {
+    private int guessCount = 0;
 	private JPanel mainPanel;
 	private JPanel colorsPanel;
 	private JPanel buttonPanel;
 	private JPanel answersPanel;
-	ColorButton[][] colorArray = new ColorButton[7][4];
-	JButton submitButton = new JButton("SUBMIT");
-	JButton resetButton = new JButton("RESET");
+	private ColorButtonListener buttonListener;
+	private ColorButton[][] colorArray = new ColorButton[7][4];
+	private JButton submitButton = new JButton("SUBMIT");
+	private JButton resetButton = new JButton("RESET");
 	
-	public GameFrame() 
+	
+	public GameFrame()
 	{
 		super("MASTERMIND");
 		createMainPanel();
@@ -28,9 +33,11 @@ public class GameFrame extends JFrame
 		
 		add(mainPanel);
 		mainPanel.add(colorsPanel);
-		mainPanel.add(buttonPanel);
 		mainPanel.add(answersPanel);
-		setSize(500,500);
+		mainPanel.add(buttonPanel);
+		
+		setSize(300,500);
+		toFront();
 	}
 	
 	public void createMainPanel() {
@@ -45,13 +52,15 @@ public class GameFrame extends JFrame
 				colorArray[i][k] = new ColorButton(i,k);
 				colorArray[i][k].setBackground(Color.LIGHT_GRAY);
 				colorArray[i][k].setPreferredSize(new Dimension(50,50));;
-		    	ColorButtonListener listener = new ColorButtonListener(null, colorArray[i][k]);
-				colorArray[i][k].addActionListener(listener);
 				colorsPanel.add(colorArray[i][k]);				
 			}
 		}
 		colorsPanel.setLayout(new GridLayout(7,4,2,2));
 	}
+	public void addColorButtonListener(int i, int k) {
+		colorArray[i][k].addActionListener(new ColorButtonListener(colorArray[i][k]));
+	}
+	
 	public void createAnswersPanel() {
 		answersPanel = new JPanel();
 		answersPanel.setBackground(Color.blue);
@@ -61,6 +70,31 @@ public class GameFrame extends JFrame
 		buttonPanel = new JPanel();
 		buttonPanel.setBackground(Color.pink);
 		buttonPanel.add(submitButton);
-		buttonPanel.add(resetButton);
+		buttonPanel.add(resetButton);		submitButton.addActionListener(  new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {	    	
+		        newTurn();
+		      }
+		    }
+		  );
 	}
+	
+	public ColorButton getButton(int row, int column) {
+		return colorArray[row][column];
+	}
+	
+	public void setButtonListener(ColorButtonListener buttonListener) {
+		this.buttonListener = buttonListener;
+	}
+	public ColorButtonListener getButtonListener() {
+		return buttonListener;
+	}
+	public int getGuessCount() {
+		return guessCount;
+	}
+	public void newTurn() {
+		guessCount++;
+	}
+	
+	
+	
 }
