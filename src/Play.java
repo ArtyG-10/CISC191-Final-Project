@@ -13,16 +13,15 @@ public class Play
 
     public static void main(String[] args) throws InterruptedException
     {
-    	GameFrame frame = new GameFrame();
-    	Thread.sleep(1000);
-    	frame.createColorsPanel();
+    	printIntroText();
+    	enterToProceed();
+    	new GameFrame();
         final int MAX_GUESSES = 10;  //Change the max guesses to adjust difficulty
         Board board = new Board();
 //        Player player;
 //        Scanner input = new Scanner(System.in);
 //        boolean winStatus = false;
         
-//        PrintIntroText();
         
 //        System.out.println("Enter a name:");
 //        String playerName = input.next();
@@ -105,14 +104,26 @@ public class Play
     }
     
     //Announces the rules of the game
-    public static void PrintIntroText()
+    public static void printIntroText() throws InterruptedException
     {
         System.out.println("Welcome to Mastermind!");
+        Thread.sleep(1000);
         System.out.println("The objective of the game is to guess the correct sequence of colors in 10 turns or less");
+        Thread.sleep(1000);
         System.out.println("All of the possible colors are R, O, Y, G, B, P");
+        Thread.sleep(1000);
         System.out.println("Of the 6 colors, the sequence will only contain 4, so your guesses must also include 4 colors");
+        Thread.sleep(1000);
         System.out.println("Make sure your guesses don't include any spaces between them i.e. 'RBGY'");
+        Thread.sleep(1000);
         System.out.println("The computer will inform you if... \n-You have the correct color in the correct place, \n-The correct color but in the wrong place \n-Or the wrong color all together.");
+        Thread.sleep(1000);
         System.out.println("Now, may the game begin");
     }
+    
+    public static void enterToProceed(){
+    	   System.out.println("Press 'Enter' to load the game...");
+    	   Scanner scanner = new Scanner(System.in);
+    	   scanner.nextLine();
+    	}
 }

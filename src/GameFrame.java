@@ -10,9 +10,10 @@ public class GameFrame extends JFrame
 	private JPanel mainPanel;
 	private JPanel colorsPanel;
 	private JPanel buttonPanel;
+	private JPanel answersPanel;
 	ColorButton[][] colorArray = new ColorButton[7][4];
-	JButton[] submitButton = new JButton[7];
-	
+	JButton submitButton = new JButton("SUBMIT");
+	JButton resetButton = new JButton("RESET");
 	
 	public GameFrame() 
 	{
@@ -20,6 +21,7 @@ public class GameFrame extends JFrame
 		createMainPanel();
 		createColorsPanel();
 		createButtonPanel();
+		createAnswersPanel();
 		
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -27,6 +29,7 @@ public class GameFrame extends JFrame
 		add(mainPanel);
 		mainPanel.add(colorsPanel);
 		mainPanel.add(buttonPanel);
+		mainPanel.add(answersPanel);
 		setSize(500,500);
 	}
 	
@@ -49,15 +52,15 @@ public class GameFrame extends JFrame
 		}
 		colorsPanel.setLayout(new GridLayout(7,4,2,2));
 	}
+	public void createAnswersPanel() {
+		answersPanel = new JPanel();
+		answersPanel.setBackground(Color.blue);
+	}
 	
 	public void createButtonPanel() {
 		buttonPanel = new JPanel();
-		buttonPanel.setPreferredSize(new Dimension(40,350));
-		for (int i=0 ; i < 7 ; i++) {
-			submitButton[i] = new JButton("Submit");
-			submitButton[i].setPreferredSize(new Dimension(35,35));
-			buttonPanel.add(submitButton[i]);
-		}
-//		buttonPanel.setLayout(new FlowLayout(FlowLayout.LEADING, 5, 16));
+		buttonPanel.setBackground(Color.pink);
+		buttonPanel.add(submitButton);
+		buttonPanel.add(resetButton);
 	}
 }
