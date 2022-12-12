@@ -1,7 +1,10 @@
 /**Authors
  * Trey & Arturo
  */
+import java.awt.Color;
 import java.util.Scanner;
+
+import javax.swing.JTextField;
 
 /*
  * The main class witch is the starting point for the game and holds most of the game play logic
@@ -10,35 +13,46 @@ import java.util.Scanner;
 public class Play
 {
     static GameFrame gameFrame;
-    
+    private static Color[] boardSolution = new Color[4];
+    private static Color[] possibleColors = {Color.blue, Color.red, Color.orange, Color.black, Color.green, Color.pink};
+
 
     public static void main(String[] args) throws InterruptedException
     {
-//    	printIntroText();
-//        Board board = new Board();
-//        Player player;
-//        Scanner input = new Scanner(System.in);
-//        boolean winStatus = false;
+    	printIntroText();
+        Board board = new Board();
+        Player player;
+        Scanner input = new Scanner(System.in);
+        boolean winStatus = false;
         
         
-//        System.out.println("Enter a name:");
-//        String playerName = input.next();
-//        player = new Player(playerName);
+        System.out.println("Enter a name:");
+        String playerName = input.next();
+        player = new Player(playerName);
         
-//    	enterToProceed();
-    	
+    	enterToProceed();
+    	setSolution();
     	gameFrame = new GameFrame();
-    	
-    	while(gameFrame.getGuessCount() < 7) {
-    	    gameTurn();
-    	}
+
+    	while (gameFrame.getGuessCount()<7 && gameFrame.turnDone) {
+    		gameTurn();
+    		}
+    }
+    
+    public static void setSolution()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            boardSolution[i] = possibleColors[(int)(Math.random() * possibleColors.length)];
+        }
     }
     	
     public static void gameTurn() 
     {
     	for(int i=0 ; i < 4 ; i++) {
-        	gameFrame.addColorButtonListener(6 - gameFrame.getGuessCount(), i);
+        	gameFrame.addColorButtonListener(gameFrame.getGuessCount(), i);
     	}
+		gameFrame.addTextHint();
     }
 //        while (guessCount < MAX_GUESSES && winStatus == false)
 //        {
@@ -120,21 +134,21 @@ public class Play
     public static void printIntroText() throws InterruptedException
     {
         System.out.println("Welcome to Mastermind!");
-        Thread.sleep(1500);
-        System.out.println("The objective of the game is to guess the correct sequence of colors in 10 turns or less");
-        Thread.sleep(1500);
-        System.out.println("All of the possible colors are RED, GREEN, BLUE, YELLOW, ORANGE, PINK");
-        Thread.sleep(1500);
-        System.out.println("Of the 6 colors, the sequence will only contain 4, which can be repeated");
-        Thread.sleep(1500);
-        System.out.println("Start from the bottom four.. clicking on each one until you get your desired color");
-        Thread.sleep(1500);
+        Thread.sleep(2000);
+        System.out.println("The objective of the game is to guess the correct sequence of colors in 7 turns or less");
+        Thread.sleep(2000);
+        System.out.println("All of the possible colors are RED, GREEN, BLUE, BlACK, ORANGE, PINK");
+        Thread.sleep(2000);
+        System.out.println("Of the 6 colors, the sequence will only contain 4 colors, which can be repeated");
+        Thread.sleep(2000);
+        System.out.println("Start from the top four blocks.. clicking on each one until you get your desired color");
+        Thread.sleep(2000);
         System.out.println("Press the submit button when colors are selected.");
-        Thread.sleep(1500);
-        System.out.println("The hint will be grey for correct colors wrong place. And Black for correct colors correct place.");
-        Thread.sleep(1500);
+        Thread.sleep(2000);
+        System.out.println("The hint will display a O for correct colors and X for correct colors also in the correct space.");
+        Thread.sleep(2000);
         System.out.println("Move on to the next row and repeat until you guess all the colors in their place correctly");
-        Thread.sleep(1500);
+        Thread.sleep(2000);
     }
     
     public static void enterToProceed(){

@@ -29,7 +29,7 @@ public class ColorButtonListener implements ActionListener
 				color = Color.orange;
 			    break;
 			  case 5:
-				color = Color.yellow;
+				color = Color.black;
 			    break;
 			  case 6:
 				color = Color.pink;

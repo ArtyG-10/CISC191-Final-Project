@@ -10,6 +10,7 @@ import javax.swing.*;
 public class GameFrame extends JFrame
 {
     private int guessCount = 0;
+    boolean turnDone = true;
 	private JPanel mainPanel;
 	private JPanel colorsPanel;
 	private JPanel buttonPanel;
@@ -18,6 +19,7 @@ public class GameFrame extends JFrame
 	private ColorButton[][] colorArray = new ColorButton[7][4];
 	private JButton submitButton = new JButton("SUBMIT");
 	private JButton exitButton = new JButton("EXIT");
+	private JLabel[] hintsArray = new JLabel[7];
 	
 	
 	public GameFrame()
@@ -36,7 +38,7 @@ public class GameFrame extends JFrame
 		mainPanel.add(answersPanel);
 		mainPanel.add(buttonPanel);
 		
-		setSize(300,500);
+		setSize(380,500);
 		toFront();
 	}
 	
@@ -63,7 +65,17 @@ public class GameFrame extends JFrame
 	
 	public void createAnswersPanel() {
 		answersPanel = new JPanel();
+		answersPanel.setPreferredSize(new Dimension(150,350));
 		answersPanel.setBackground(Color.blue);
+		answersPanel.setLayout(new GridLayout(7,1));
+		for (int i=0;i<7;i++) {
+			hintsArray[i] = new JLabel("OOX");
+			answersPanel.add(hintsArray[i]);
+		}
+	}
+	
+	public void addTextHint() {
+//		answersPanel.add(new JTextField("filler text"));
 	}
 	
 	public void createButtonPanel() {
@@ -74,11 +86,14 @@ public class GameFrame extends JFrame
 		submitButton.addActionListener(  new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {	    	
 		        guessCount++;
+		        turnDone = true;
+		        hintsArray[guessCount-1].setText("hints");
 		      }
 		    }
 		  );
 		exitButton.addActionListener(  new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {	    	
+		    public void actionPerformed(ActionEvent e) {	    					answersPanel.add(new JLabel("filler text"));
+		    
 		        System.exit(0);
 		      }
 		    }
