@@ -2,6 +2,7 @@
  * Trey & Arturo
  */
 import java.awt.Color;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import javax.swing.JTextField;
@@ -14,122 +15,91 @@ public class Play
 {
     static GameFrame gameFrame;
     private static Color[] boardSolution = new Color[4];
-    private static Color[] possibleColors = {Color.blue, Color.red, Color.orange, Color.black, Color.green, Color.pink};
-
+    static Color[] currentGuess = new Color[4];
 
     public static void main(String[] args) throws InterruptedException
     {
-    	printIntroText();
+//    	printIntroText();
         Board board = new Board();
         Player player;
         Scanner input = new Scanner(System.in);
-        boolean winStatus = false;
-        
         
         System.out.println("Enter a name:");
         String playerName = input.next();
         player = new Player(playerName);
         
-    	enterToProceed();
+//    	enterToProceed();
     	setSolution();
     	gameFrame = new GameFrame();
+    	
+    	for (int k=0; k < 7; k++) {
+    		
+    	   	for(int i=0 ; i < 4 ; i++) gameFrame.addColorButtonListener(k, i);
+    	   	
+        	while (gameFrame.getGuessCount() == k) {
+        		Thread.sleep(2000);
+        	}
 
-    	while (gameFrame.getGuessCount()<7 && gameFrame.turnDone) {
-    		gameTurn();
-    		}
+        	for(int i=0 ; i < 4 ; i++) {
+        		currentGuess[i] = gameFrame.getButton(k, i).getButtonColor();
+        	}
+
+    	   	gameFrame.getHintsArray()[gameFrame.getGuessCount()-1].setText(checkAnswer(currentGuess));
+    	}
+    	
+    	if (gameFrame.getGuessCount() == 7) {
+    		System.out.println(player.getName() + " Sorry you are out of moves.");
+    		System.out.println("GAME OVER");
+    	}
     }
     
     public static void setSolution()
     {
+        Color[] possibleColors = {Color.blue, Color.red, Color.orange, Color.black, Color.green, Color.pink};
+
         for (int i = 0; i < 4; i++)
         {
             boardSolution[i] = possibleColors[(int)(Math.random() * possibleColors.length)];
         }
     }
-    	
-    public static void gameTurn() 
-    {
-    	for(int i=0 ; i < 4 ; i++) {
-        	gameFrame.addColorButtonListener(gameFrame.getGuessCount(), i);
-    	}
-		gameFrame.addTextHint();
-    }
-//        while (guessCount < MAX_GUESSES && winStatus == false)
-//        {
-//            boolean validGuessFlag = false;   //flag used to make sure input is formatted correctly
-//            
-//            System.out.println("\nGuess " + (guessCount + 1) + " of " + MAX_GUESSES);
-//            System.out.println("Enter your guess:");
-//            String guess = input.next().toUpperCase();   //capture users input and convert it to uppercase
-//            
-//            while (guess.length() != 4) 			//Checks for right amount of colors in input
-//            {
-//               	System.out.println("Please input a guess with FOUR colors in this format: RYBO");
-//               	System.out.println("All of the possible colors are R, O, Y, G, B, P");
-//                System.out.println("Enter your guess:");
-//                guess = input.next().toUpperCase();
-//            }
-//            
-//            String[] guessArray = guess.split("");	//Split the guess into an array to check for correct input and to compare with the board results array
-//            
-//            try
-//            {
-//	            if (
-//	            		(guessArray[0].equals("R") || guessArray[0].equals("O") || guessArray[0].equals("Y") || guessArray[0].equals("G") || guessArray[0].equals("B") || guessArray[0].equals("P"))
-//	            		&& (guessArray[1].equals("R") || guessArray[1].equals("O") || guessArray[1].equals("Y") || guessArray[1].equals("G") || guessArray[1].equals("B") || guessArray[1].equals("P"))
-//	            		&& (guessArray[2].equals("R") || guessArray[2].equals("O") || guessArray[2].equals("Y") || guessArray[2].equals("G") || guessArray[2].equals("B") || guessArray[2].equals("P"))
-//	            		&& (guessArray[3].equals("R") || guessArray[3].equals("O") || guessArray[3].equals("Y") || guessArray[3].equals("G") || guessArray[3].equals("B") || guessArray[3].equals("P"))
-//	            	)
-//	            	{
-//	            		validGuessFlag = true;
-//	            	}
-//            }
-//            catch (Exception e)				//This prevents the program from breaking if the user inputs less than 4 colors
-//            {
-//            	System.out.println("Input error - You must guess 4 colors");
-//            }
-//            
-//            try
-//            {
-//            while (validGuessFlag == false) 
-//            {
-//            	System.out.println("Please input a guess in this format: RYBO");
-//               	System.out.println("All of the possible colors are R, O, Y, G, B, P");
-//                System.out.println("Enter your guess:");
-//                guess = input.next().toUpperCase();
-//                guessArray = guess.split(""); 
-//            	if (
-//            		(guessArray[0].equals("R") || guessArray[0].equals("O") || guessArray[0].equals("Y") || guessArray[0].equals("G") || guessArray[0].equals("B") || guessArray[0].equals("P"))
-//            		&& (guessArray[1].equals("R") || guessArray[1].equals("O") || guessArray[1].equals("Y") || guessArray[1].equals("G") || guessArray[1].equals("B") || guessArray[1].equals("P"))
-//            		&& (guessArray[2].equals("R") || guessArray[2].equals("O") || guessArray[2].equals("Y") || guessArray[2].equals("G") || guessArray[2].equals("B") || guessArray[2].equals("P"))
-//            		&& (guessArray[3].equals("R") || guessArray[3].equals("O") || guessArray[3].equals("Y") || guessArray[3].equals("G") || guessArray[3].equals("B") || guessArray[3].equals("P"))
-//            		)
-//            	{
-//            		validGuessFlag = true;
-//            	}
-//            }
-//            }
-//            catch (Exception e)						//This prevents the program from breaking if the user inputs less than 4 colors
-//            {
-//            	System.out.println("Input error - You must guess 4 colors");
-//            }
-//            
-//            winStatus = board.checkAnswer(guessArray);
-//            guessCount++;
-//        }
-//
-//        input.close();
-//        //States how many turns it took for you to guess the answer.
-//        if (winStatus == true)
-//        {
-//            System.out.println("Congratulations, " + player.getName() + "! You won in " + (guessCount + 1) + " guesses!");
-//        }
-//        else
-//        {
-//            System.out.println("Sorry, " + player.getName() + ". You lost. The answer was " + board.getBoardSolution());
-//        }
-  
     
+    public static String checkAnswer(Color[] guessArray) {
+        {
+            int correctColorCorrectPlace = 0;
+            int correctColorWrongPlace = 0;
+            int wrongColor = 0;
+            
+            for (Color color : guessArray)
+            {
+                if (Arrays.asList(boardSolution).contains(color))
+                {
+                    if (Arrays.asList(boardSolution).indexOf(color) == Arrays.asList(guessArray).indexOf(color))
+                    {
+                        correctColorCorrectPlace++;
+                    }
+                    else
+                    {
+                        correctColorWrongPlace++;
+                    }
+                }
+                else
+                {
+                    wrongColor++;
+                }
+            }
+
+            if (correctColorCorrectPlace == 4)
+            {
+                return "you win";
+            }
+            else
+            {
+                return ("Correct color, correct place: " + correctColorCorrectPlace + "    Correct color, wrong place: " + 
+            correctColorWrongPlace + "     Wrong color: " + wrongColor);
+            }
+        }
+    }
+
     //Announces the rules of the game
     public static void printIntroText() throws InterruptedException
     {
@@ -145,7 +115,7 @@ public class Play
         Thread.sleep(2000);
         System.out.println("Press the submit button when colors are selected.");
         Thread.sleep(2000);
-        System.out.println("The hint will display a O for correct colors and X for correct colors also in the correct space.");
+        System.out.println("The hint will display a O for correct colors and X for correct colors also in the correct square.");
         Thread.sleep(2000);
         System.out.println("Move on to the next row and repeat until you guess all the colors in their place correctly");
         Thread.sleep(2000);

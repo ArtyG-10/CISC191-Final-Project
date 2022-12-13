@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,16 +11,15 @@ import javax.swing.*;
 public class GameFrame extends JFrame
 {
     private int guessCount = 0;
-    boolean turnDone = true;
 	private JPanel mainPanel;
 	private JPanel colorsPanel;
 	private JPanel buttonPanel;
 	private JPanel answersPanel;
 	private ColorButtonListener buttonListener;
-	private ColorButton[][] colorArray = new ColorButton[7][4];
+	private ColorButton[][] colorButtons3DArray = new ColorButton[7][4];
 	private JButton submitButton = new JButton("SUBMIT");
 	private JButton exitButton = new JButton("EXIT");
-	private JLabel[] hintsArray = new JLabel[7];
+	private JTextArea[] hintsArray = new JTextArea[7];
 	
 	
 	public GameFrame()
@@ -38,7 +38,7 @@ public class GameFrame extends JFrame
 		mainPanel.add(answersPanel);
 		mainPanel.add(buttonPanel);
 		
-		setSize(380,500);
+		setSize(450,500);
 		toFront();
 	}
 	
@@ -49,51 +49,49 @@ public class GameFrame extends JFrame
 	public void createColorsPanel()
 	{
 		colorsPanel = new JPanel();
-		for (int i = 0 ; i < colorArray.length ; i++ ) {
-			for (int k = 0 ; k <colorArray[i].length ; k++) {
-				colorArray[i][k] = new ColorButton(i,k);
-				colorArray[i][k].setBackground(Color.LIGHT_GRAY);
-				colorArray[i][k].setPreferredSize(new Dimension(50,50));;
-				colorsPanel.add(colorArray[i][k]);				
+		for (int i = 0 ; i < colorButtons3DArray.length ; i++ ) {
+			for (int k = 0 ; k <colorButtons3DArray[i].length ; k++) {
+				colorButtons3DArray[i][k] = new ColorButton(i,k);
+				colorButtons3DArray[i][k].setBackground(Color.LIGHT_GRAY);
+				colorButtons3DArray[i][k].setPreferredSize(new Dimension(50,50));;
+				colorsPanel.add(colorButtons3DArray[i][k]);				
 			}
 		}
 		colorsPanel.setLayout(new GridLayout(7,4,2,2));
 	}
 	public void addColorButtonListener(int i, int k) {
-		colorArray[i][k].addActionListener(new ColorButtonListener(colorArray[i][k]));
+		colorButtons3DArray[i][k].addActionListener(new ColorButtonListener(colorButtons3DArray[i][k]));
 	}
 	
 	public void createAnswersPanel() {
 		answersPanel = new JPanel();
-		answersPanel.setPreferredSize(new Dimension(150,350));
-		answersPanel.setBackground(Color.blue);
+		answersPanel.setPreferredSize(new Dimension(180,350));
 		answersPanel.setLayout(new GridLayout(7,1));
 		for (int i=0;i<7;i++) {
-			hintsArray[i] = new JLabel("OOX");
+			hintsArray[i] = new JTextArea();
+			hintsArray[i].setLineWrap(true);
+			hintsArray[i].setFont(new Font("Arial", Font.TRUETYPE_FONT, 12));
 			answersPanel.add(hintsArray[i]);
 		}
 	}
 	
-	public void addTextHint() {
-//		answersPanel.add(new JTextField("filler text"));
-	}
 	
 	public void createButtonPanel() {
 		buttonPanel = new JPanel();
-		buttonPanel.setBackground(Color.pink);
+		submitButton.setPreferredSize(new Dimension(100,50));
+		exitButton.setPreferredSize(new Dimension(100,50));
 		buttonPanel.add(submitButton);
 		buttonPanel.add(exitButton);		
 		submitButton.addActionListener(  new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {	    	
+		    public void actionPerformed(ActionEvent e) {	
+		    	if (guessCount < 7) {
 		        guessCount++;
-		        turnDone = true;
-		        hintsArray[guessCount-1].setText("hints");
+		    	}
 		      }
 		    }
 		  );
 		exitButton.addActionListener(  new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {	    					answersPanel.add(new JLabel("filler text"));
-		    
+		    public void actionPerformed(ActionEvent e) {	    					
 		        System.exit(0);
 		      }
 		    }
@@ -101,7 +99,11 @@ public class GameFrame extends JFrame
 	}
 	
 	public ColorButton getButton(int row, int column) {
-		return colorArray[row][column];
+		return colorButtons3DArray[row][column];
+	}
+	
+	public ColorButton[][] getColorButtons3DArray(){
+		return colorButtons3DArray;
 	}
 	
 	public void setButtonListener(ColorButtonListener buttonListener) {
@@ -113,6 +115,9 @@ public class GameFrame extends JFrame
 	public int getGuessCount() {
 		return guessCount;
 	}	
+	public JTextArea[] getHintsArray() {
+		return hintsArray;
+	}
 	
 	
 }
