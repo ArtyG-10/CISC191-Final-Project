@@ -118,6 +118,4 @@ public class GameFrame extends JFrame
 	public JTextArea[] getHintsArray() {
 		return hintsArray;
 	}
-	
-	
 }
