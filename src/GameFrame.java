@@ -8,24 +8,27 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+/*
+ * GUI game board creation
+ */
 public class GameFrame extends JFrame
 {
     private int guessCount = 0;
 	private JPanel mainPanel;
-	private JPanel colorsPanel;
-	private JPanel buttonPanel;
-	private JPanel answersPanel;
+	private JPanel colorsPanel;	//holds the color buttons
+	private JPanel buttonPanel;  //holds submit and exit buttons
+	private JPanel answersPanel;  //holds the text hints
 	private ColorButtonListener buttonListener;
 	private ColorButton[][] colorButtons3DArray = new ColorButton[7][4];
 	private JButton submitButton = new JButton("SUBMIT");
 	private JButton exitButton = new JButton("EXIT");
 	private JTextArea[] hintsArray = new JTextArea[7];
 	
-	
+	//constructor adds all the elements to the main panel
 	public GameFrame()
 	{
 		super("MASTERMIND");
-		createMainPanel();
+		mainPanel = new JPanel();
 		createColorsPanel();
 		createButtonPanel();
 		createAnswersPanel();
@@ -42,10 +45,7 @@ public class GameFrame extends JFrame
 		toFront();
 	}
 	
-	public void createMainPanel() {
-		mainPanel = new JPanel();
-	}
-	
+	//This panel holds a 3D array of 
 	public void createColorsPanel()
 	{
 		colorsPanel = new JPanel();
@@ -57,12 +57,18 @@ public class GameFrame extends JFrame
 				colorsPanel.add(colorButtons3DArray[i][k]);				
 			}
 		}
-		colorsPanel.setLayout(new GridLayout(7,4,2,2));
+		
+		//buttons set in a grid of 7 rows, 4 columns, with a spacing of 2 
+		colorsPanel.setLayout(new GridLayout(7,4,2,2)); 
 	}
-	public void addColorButtonListener(int i, int k) {
+	
+	//adds event listener to button to change colors when clicked
+	public void addColorButtonListener(int i, int k) 
+	{
 		colorButtons3DArray[i][k].addActionListener(new ColorButtonListener(colorButtons3DArray[i][k]));
 	}
 	
+	//this JPanel holds an array of text fields for the game hints
 	public void createAnswersPanel() {
 		answersPanel = new JPanel();
 		answersPanel.setPreferredSize(new Dimension(180,350));
@@ -74,14 +80,16 @@ public class GameFrame extends JFrame
 			answersPanel.add(hintsArray[i]);
 		}
 	}
-	
-	
+
+	//panel to hold submit and exit buttons
 	public void createButtonPanel() {
 		buttonPanel = new JPanel();
 		submitButton.setPreferredSize(new Dimension(100,50));
 		exitButton.setPreferredSize(new Dimension(100,50));
 		buttonPanel.add(submitButton);
 		buttonPanel.add(exitButton);		
+		
+		//anonymous inner class for action listeners on the buttons
 		submitButton.addActionListener(  new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {	
 		    	if (guessCount < 7) {
@@ -98,6 +106,7 @@ public class GameFrame extends JFrame
 		  );
 	}
 	
+	//getters and setter below
 	public ColorButton getButton(int row, int column) {
 		return colorButtons3DArray[row][column];
 	}

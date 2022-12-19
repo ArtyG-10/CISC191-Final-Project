@@ -2,6 +2,9 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/*
+ * action listener to change button color
+ */
 public class ColorButtonListener implements ActionListener
 {
 	ColorButton colorButton;
@@ -11,10 +14,16 @@ public class ColorButtonListener implements ActionListener
 	ColorButtonListener(ColorButton colorButton) {
 		this.colorButton = colorButton;
 	}
-	 
+	
+	//implement the actionPerformed method to change the color
+	//variable to cycle through each of the colors when clicked
 	public void actionPerformed(ActionEvent e) {
-		if (click == 6) click = 0;
-		click++;
+		
+		click++; //increment the click
+		if (click == 7) click = 0;	//reset click variable if at 7 clicks
+
+		
+		//switch to keep track of the color corresponding with clicks
 		switch(click) {
 			  case 1:
 				color = Color.red;
@@ -36,7 +45,11 @@ public class ColorButtonListener implements ActionListener
 			    break;
 			}
 		
+		//change button color on click
 		colorButton.setBackground(color);
+		
+		//may be needed for macs
+//		colorButton.setOpaque(true);
 	}
 
 }
